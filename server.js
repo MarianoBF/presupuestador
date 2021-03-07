@@ -25,7 +25,12 @@ app.get("/", (req, res) => {
     res.json({message: "Bienvenido"});
 });
 
-app.listen(8500, () => {
+
+require("./app/routes/gastos.routes")(app);
+
+const PORT = 8500;
+
+app.listen(PORT, () => {
     console.log("Servidor activo");
 });
 

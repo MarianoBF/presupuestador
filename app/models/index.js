@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
     dialect: dbConfig.dialect,
-    // operatorsAliases: false,
+    operatorsAliases: false,
 
     pool: {
         max: dbConfig.pool.max,
@@ -19,7 +19,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.gasto = require("./gasto_modelo.js")(sequelize, Sequelize);
+db.gastos = require("./gasto_modelo.js")(sequelize, Sequelize);
 
 module.exports = db;
 
