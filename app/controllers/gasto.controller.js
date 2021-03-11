@@ -1,4 +1,3 @@
-const { query } = require("express");
 const db = require("../models");
 const Gasto = db.gastos;
 const Op = db.Sequelize.Op;
