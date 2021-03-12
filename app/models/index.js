@@ -19,7 +19,8 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.gastos = require("./gasto_modelo.js")(sequelize, Sequelize);
+db.gastos = require("./gasto_model.js")(sequelize, Sequelize);
+db.presupuesto = require("./presupuesto_model.js")(sequelize, Sequelize);
 
 module.exports = db;
 

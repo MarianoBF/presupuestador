@@ -35,6 +35,8 @@ mysql.createConnection({
 
 
         require("./app/routes/gastos.routes")(app);
+        require("./app/routes/presupuesto.routes")(app);
+
 
         const PORT = 8500;
 

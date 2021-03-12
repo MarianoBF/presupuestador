@@ -7,8 +7,6 @@ module.exports = app => {
 
     router.get("/", gastos.findAll);
 
-    router.get("/pagados", gastos.findAllPagados);
-
     router.get("/:id", gastos.findOne);
 
     router.delete("/:id", gastos.delete);

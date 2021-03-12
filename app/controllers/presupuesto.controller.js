@@ -1,5 +1,5 @@
 const db = require("../models");
-const Gasto = db.gastos;
+const Presupuesto = db.presupuesto;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -10,13 +10,13 @@ exports.create = (req, res) => {
         return
     }
 
-    const gasto = {
+    const presupuesto = {
         descripcion: req.body.descripcion,
         rubro: req.body.rubro,
-        monto: req.body.monto ? req.body.monto : 0.00
+        monto_mensual: req.body.monto_mensual ? req.body.monto_mensual : 0.00
     }
 
-    Gasto.create(gasto)
+    Presupuesto.create(presupuesto)
         .then(data => {
             res.send(data);
         })
@@ -32,7 +32,7 @@ exports.findAll = (req, res) => {
     const title = req.query.title;
     let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-    Gasto.findAll({ where: condition })
+    Presupuesto.findAll({ where: condition })
         .then(data => {
             res.send(data)
         })
@@ -47,7 +47,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Gasto.findByPk(id)
+    Presupuesto.findByPk(id)
         .then(data=> {
             res.send(data);
         })
@@ -61,7 +61,7 @@ exports.findOne = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Gasto.destroy({
+    Presupuesto.destroy({
         where: { id: id }
     })
         .then(num=> {
@@ -83,7 +83,7 @@ exports.delete = (req, res) => {
         };
 
 exports.deleteAll = (req, res) => {
-    Gasto.destroy({
+    Presupuesto.destroy({
         where: {},
         truncate: false
     })
