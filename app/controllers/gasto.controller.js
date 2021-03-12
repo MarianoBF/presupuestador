@@ -11,9 +11,9 @@ exports.create = (req, res) => {
     }
 
     const gasto = {
-        rubro: req.body.rubro,
         descripcion: req.body.descripcion,
-        pagado: req.body.pagado ? req.body.pagado : false
+        rubro: req.body.rubro,
+        monto: req.body.monto ? req.body.monto : 0.00
     }
 
     Gasto.create(gasto)

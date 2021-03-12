@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require('cors')
+const mysql = require('mysql2/promise');
+
 
 const app = express();
 
@@ -14,101 +16,36 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+const checker = require("./app/config/db.config");
+
 const db = require("./app/models");
-db.sequelize.sync();
 
-app.get("/", (req, res) => {
-    res.json({message: "Bienvenido"});
+mysql.createConnection({
+    user     : checker.USER,
+    password : checker.PASSWORD,
+    host     : checker.HOST,
+}).then((connection) => {
+    connection.query('CREATE DATABASE IF NOT EXISTS ' + checker.DB +';').then(() => {
+        db.sequelize.sync();
 
-});
+        app.get("/", (req, res) => {
+            res.json({message: "Bienvenido"});
 
-
-require("./app/routes/gastos.routes")(app);
-
-const PORT = 8500;
-
-app.listen(PORT, () => {
-    console.log("Servidor activo");
-});
+        });
 
 
+        require("./app/routes/gastos.routes")(app);
 
+        const PORT = 8500;
 
-// let usuario = {
-//  nombre:'Juan',
-//  apellido: 'Perez'
-// };
+        app.listen(PORT, () => {
+            console.log("Servidor activo");
+        });
 
-// let respuesta = {
-//  error: false,
-//  codigo: 200,
-//  mensaje: ''
-// };
+    })
+})
 
 
 
-// app.get('/', function(req, res) {
-//  respuesta = {
-//   error: true,
-//   codigo: 200,
-//   mensaje: 'Punto de inicio'
-//  };
-//  res.send(respuesta);
-// });
 
-// app.get('/usuario', cors(), function (req, res, next) {
-//  respuesta = {
-//   error: false,
-//   codigo: 200,
-//   mensaje: ''
-//  };
-
-//  if(usuario.nombre === '' || usuario.apellido === '') {
-//   respuesta = {
-//    error: true,
-//    codigo: 501,
-//    mensaje: 'El usuario no ha sido creado'
-//   };
-//  } else {
-//   respuesta = {
-//    error: false,
-//    codigo: 200,
-//    mensaje: 'respuesta del usuario',
-//    respuesta: usuario
-//   };
-//  }
-//  res.send(respuesta);
-// });
-// app.post('/usuario', function (req, res) {
-
-//  if(!req.body.nombre || !req.body.apellido) {
-//   respuesta = {
-//    error: true,
-//    codigo: 502,
-//    mensaje: 'El campo nombre y apellido son requeridos'
-//   };
-//  } else {
-
-//   if(usuario.nombre !== '' || usuario.apellido !== '') {
-//    respuesta = {
-//     error: true,
-//     codigo: 503,
-//     mensaje: 'El usuario ya fue creado previamente'
-//    };
-//   } else {
-//    usuario = {
-//     nombre: req.body.nombre,
-//     apellido: req.body.apellido
-//    };
-//    respuesta = {
-//     error: false,
-//     codigo: 200,
-//     mensaje: 'Usuario creado',
-//     respuesta: usuario
-//    };
-//   }
-//  }
- 
-//  res.send(respuesta);
-// });
 
