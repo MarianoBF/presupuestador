@@ -29,13 +29,13 @@ mysql.createConnection({
         db.sequelize.sync();
 
         app.get("/", (req, res) => {
-            res.json({message: "Bienvenido"});
+            res.json({message: "Servicio operativo"});
 
         });
 
 
-        require("./app/routes/gastos.routes")(app);
-        require("./app/routes/presupuesto.routes")(app);
+        require("./app/routes/entry.routes")(app);
+        require("./app/routes/budget.routes")(app);
 
 
         const PORT = 8500;

@@ -1,24 +1,23 @@
 const db = require("../models");
-const Gasto = db.gastos;
+const Budget = db.budget;
+const Entry = db.entries;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    if (!req.body.category) {
+    if (!req.body.rubro) {
         res.status(400).send({
             message: "Debe indicar rubro"
         });
         return
     }
 
-    const gasto = {
-        date: req.body.date,
+    const budget = {
         category: req.body.category,
         description: req.body.description,
-        ammount: req.body.ammount,
-        kind: req.body.kind,
+        monthlyLimit: req.body.monthlyLimit
     }
 
-    Gasto.create(gasto)
+    Budget.create(budget)
         .then(data => {
             res.send(data);
         })
@@ -34,7 +33,7 @@ exports.findAll = (req, res) => {
     const title = req.query.title;
     let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-    Gasto.findAll({ where: condition })
+    Budget.findAll({ where: condition })
         .then(data => {
             res.send(data)
         })
@@ -49,7 +48,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Gasto.findByPk(id)
+    Budget.findByPk(id)
         .then(data=> {
             res.send(data);
         })
@@ -63,7 +62,7 @@ exports.findOne = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Gasto.destroy({
+    Budget.destroy({
         where: { id: id }
     })
         .then(num=> {
@@ -85,7 +84,7 @@ exports.delete = (req, res) => {
         };
 
 exports.deleteAll = (req, res) => {
-    Gasto.destroy({
+    Budget.destroy({
         where: {},
         truncate: false
     })

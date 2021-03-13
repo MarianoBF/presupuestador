@@ -1,23 +1,24 @@
 const db = require("../models");
-const Presupuesto = db.presupuesto;
-const Gasto = db.gastos;
+const Entry = db.entries;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    if (!req.body.rubro) {
+    if (!req.body.category) {
         res.status(400).send({
             message: "Debe indicar rubro"
         });
         return
     }
 
-    const presupuesto = {
-        descripcion: req.body.descripcion,
-        rubro: req.body.rubro,
-        monto_mensual: req.body.monto_mensual ? req.body.monto_mensual : 0.00
+    const entry = {
+        date: req.body.date,
+        category: req.body.category,
+        description: req.body.description,
+        ammount: req.body.ammount,
+        kind: req.body.kind,
     }
 
-    Presupuesto.create(presupuesto)
+    Entry.create(entry)
         .then(data => {
             res.send(data);
         })
@@ -29,19 +30,11 @@ exports.create = (req, res) => {
         })
 };
 
-// exports.findAll = () => {
-//     return Presupuesto.findAll({
-//       include: ["gastos"],
-//     }).then((data) => {
-//       return data;
-//     });
-//   };
-
 exports.findAll = (req, res) => {
     const title = req.query.title;
     let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-    Presupuesto.findAll({ where: condition })
+    Entry.findAll({ where: condition })
         .then(data => {
             res.send(data)
         })
@@ -56,7 +49,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Presupuesto.findByPk(id)
+    Entry.findByPk(id)
         .then(data=> {
             res.send(data);
         })
@@ -70,7 +63,7 @@ exports.findOne = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Presupuesto.destroy({
+    Entry.destroy({
         where: { id: id }
     })
         .then(num=> {
@@ -92,7 +85,7 @@ exports.delete = (req, res) => {
         };
 
 exports.deleteAll = (req, res) => {
-    Presupuesto.destroy({
+    Entry.destroy({
         where: {},
         truncate: false
     })

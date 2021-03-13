@@ -1,18 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
-    const Presupuesto = sequelize.define("presupuesto", {
-        descripcion: {
-            type: Sequelize.STRING
-        },
-        rubro: {
+    const Budget = sequelize.define("budget", {
+        category: {
             type: Sequelize.STRING,
             allowNull: false,
             unique: true
         },
-        monto_mensual: {
+        description: {
+            type: Sequelize.STRING,
+        },
+        monthlyLimit: {
             type: Sequelize.FLOAT
         }
 
     });
 
-    return Presupuesto;
+    return Budget;
 }
