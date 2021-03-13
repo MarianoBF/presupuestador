@@ -1,5 +1,6 @@
 const db = require("../models");
 const Presupuesto = db.presupuesto;
+const Gasto = db.gastos;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -27,6 +28,14 @@ exports.create = (req, res) => {
             })
         })
 };
+
+// exports.findAll = () => {
+//     return Presupuesto.findAll({
+//       include: ["gastos"],
+//     }).then((data) => {
+//       return data;
+//     });
+//   };
 
 exports.findAll = (req, res) => {
     const title = req.query.title;

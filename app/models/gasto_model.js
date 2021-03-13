@@ -1,13 +1,19 @@
 module.exports = (sequelize, Sequelize) => {
     const Gasto = sequelize.define("gasto", {
-        descripcion: {
+        date: {
+            type: Sequelize.DATE
+        },
+        category: {
             type: Sequelize.STRING
         },
-        rubro: {
+        description: {
             type: Sequelize.STRING
         },
-        monto: {
+        ammount: {
             type: Sequelize.FLOAT
+        },
+        kind: {
+            type: Sequelize.STRING
         }
 
     });

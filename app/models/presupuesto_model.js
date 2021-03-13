@@ -4,7 +4,9 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         rubro: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: true
         },
         monto_mensual: {
             type: Sequelize.FLOAT

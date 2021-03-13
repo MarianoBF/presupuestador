@@ -3,7 +3,7 @@ const Gasto = db.gastos;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    if (!req.body.rubro) {
+    if (!req.body.category) {
         res.status(400).send({
             message: "Debe indicar rubro"
         });
@@ -11,9 +11,11 @@ exports.create = (req, res) => {
     }
 
     const gasto = {
-        descripcion: req.body.descripcion,
-        rubro: req.body.rubro,
-        monto: req.body.monto ? req.body.monto : 0.00
+        date: req.body.date,
+        category: req.body.category,
+        description: req.body.description,
+        ammount: req.body.ammount,
+        kind: req.body.kind,
     }
 
     Gasto.create(gasto)
