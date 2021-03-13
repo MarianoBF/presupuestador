@@ -15,7 +15,6 @@ module.exports = (sequelize, Sequelize) => {
         kind: {
             type: Sequelize.STRING
         }
-
     });
 
     return Gasto;
