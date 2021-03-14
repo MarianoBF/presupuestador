@@ -1,10 +1,9 @@
 const db = require("../models");
 const Budget = db.budget;
-const Entry = db.entries;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    if (!req.body.rubro) {
+    if (!req.body.category) {
         res.status(400).send({
             message: "Debe indicar rubro"
         });

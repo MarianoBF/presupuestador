@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.STRING
         },
-        ammount: {
+        amount: {
             type: Sequelize.FLOAT,
             allowNull: false,
         },

@@ -14,7 +14,7 @@ exports.create = (req, res) => {
         date: req.body.date,
         category: req.body.category,
         description: req.body.description,
-        ammount: req.body.ammount,
+        amount: req.body.amount,
         kind: req.body.kind,
     }
 
@@ -56,6 +56,30 @@ exports.findOne = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message: "Error al traer id: "+ id
+            })
+        })
+};
+
+exports.update = (req, res) => {
+
+    const id = req.params.id;
+
+    const entry = {
+        date: req.body.date,
+        category: req.body.category,
+        description: req.body.description,
+        amount: req.body.amount,
+        kind: req.body.kind,
+    }
+
+    Entry.update(entry, {where: {id: id}})
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Ocurrió un error"
             })
         })
 };

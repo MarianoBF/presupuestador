@@ -5,14 +5,14 @@ module.exports = app => {
 
     router.post("/entry", entry.create);
 
-    router.get("/", entry.findAll);
+    router.get("/entries", entry.findAll);
 
-    router.get("/:id", entry.findOne);
+    router.put("/entry/:id", entry.update);
 
-    router.delete("/:id", entry.delete);
+    router.delete("/entry/:id", entry.delete);
 
-    router.delete("/", entry.deleteAll);
+    router.delete("/entry", entry.deleteAll);
 
-    app.use("/api/entry", router);
+    app.use("/api", router);
 
 };
