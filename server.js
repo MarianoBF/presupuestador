@@ -2,6 +2,10 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const mysql = require('mysql2/promise');
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs')
+const docs = YAML.load('./app/documentation/documentation.yaml');
+
 
 
 const app = express();
@@ -14,6 +18,8 @@ app.use(cors(corsOptions))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/documentation', swaggerUI.serve, swaggerUI.setup(docs));
 
 
 const checker = require("./app/config/db.config");

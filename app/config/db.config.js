@@ -1,6 +1,6 @@
 module.exports = {
     HOST: "localhost",
-    USER: "testuser",
+    USER: "prueba",
     PASSWORD: "123pass",
     PORT: 8500,
     DB: "testdb",
