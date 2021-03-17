@@ -1,5 +1,6 @@
 Back de presupuestador
+# npm install
+# node server.js
 
-npm install
+Db connection details in /app/config/db.config
 
-node server.js
