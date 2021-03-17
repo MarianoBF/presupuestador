@@ -1,0 +1,102 @@
+openapi: "3.0.3"
+info:
+  title: "Presupuestador"
+  version: "1.0.0"
+  description: "Un sistema de registro de movimientos con categorías para presupuestar"
+servers:
+  - url: http://localhost.com:8500/api
+paths:
+  /entry:
+    get:
+      summary: "Acceso a lista de movimientos"
+      tags:
+        - Entries
+      responses: 
+        200:
+          description: "AA"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items: 
+                  $ref: "#/components/schemas/Entry"
+    post:
+      summary: "Agregar nueva entry"
+      tags:
+        - Entries
+      parameters:
+        - name: Entry
+          in: query
+          description: "Los detalles del movimiento"
+          required: true
+          schema:
+            type: object
+            $ref: '#/components/schemas/Entry'
+      responses:
+        "200":
+          description: "Todo OK"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entry'
+  /entry/{id}:
+    put:
+      summary: "Modificar Movimiento"
+      tags:
+        - Entries
+      parameters:
+        - name: "Entry"
+          required: true
+          in: query
+          schema:
+            type: "object"
+            $ref: '#/components/schemas/Entry'
+      responses:
+        "200":
+          description: "OK"
+          content: 
+            application/json:
+              schema:
+                type: "object" 
+                $ref: '#/components/schemas/Entry'
+        404:
+          description: "Error"
+    delete:
+      summary: "Borrar movimiento"
+      tags:
+        - Entries
+      responses: 
+        200:
+          description: "OK"
+        404:
+          description: "Error"
+
+      
+components:
+  schemas:
+    Entry:
+      type: "object"
+      required:
+        - date
+        - category
+        - description
+        - amount
+        - kind
+      properties:
+        id:
+          type: "integer"  
+        date:
+          type: "string"
+          format: "date"
+        category:
+          type: "integer"
+        description:
+          type: "string"
+        amount:
+          type: "number"         
+        kind:
+          type: "string"
+          enum: 
+          - Egreso
+          - Ingreso    
+  

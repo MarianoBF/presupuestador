@@ -46,20 +46,6 @@ exports.findAll = (req, res) => {
         })
 };
 
-exports.findOne = (req, res) => {
-    const id = req.params.id;
-
-    Entry.findByPk(id)
-        .then(data=> {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error al traer id: "+ id
-            })
-        })
-};
-
 exports.update = (req, res) => {
 
     const id = req.params.id;

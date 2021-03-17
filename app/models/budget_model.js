@@ -7,9 +7,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         description: {
             type: Sequelize.STRING,
+            allowNull: false,
         },
         monthlyLimit: {
-            type: Sequelize.FLOAT
+            type: Sequelize.FLOAT,
+            allowNull: false,
         }
 
     });

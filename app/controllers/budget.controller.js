@@ -5,7 +5,19 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
     if (!req.body.category) {
         res.status(400).send({
-            message: "Debe indicar rubro"
+            message: "Falta rubro"
+        });
+        return
+    }
+    if (!req.body.description) {
+        res.status(400).send({
+            message: "Falta descripción"
+        });
+        return
+    }
+    if (!req.body.monthlyLimit) {
+        res.status(400).send({
+            message: "Falta monto"
         });
         return
     }
@@ -40,20 +52,6 @@ exports.findAll = (req, res) => {
             res.status(500).send({
                 message:
                 err.message || "Error al buscar."
-            })
-        })
-};
-
-exports.findOne = (req, res) => {
-    const id = req.params.id;
-
-    Budget.findByPk(id)
-        .then(data=> {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error al traer id: "+ id
             })
         })
 };
