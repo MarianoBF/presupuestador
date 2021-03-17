@@ -7,7 +7,7 @@ const mysql = require('mysql2/promise');
 const app = express();
 
 const corsOptions = {
-    origin: "http://localhost:3000"
+    origin: "https://marianobf.github.io/"
 };
 
 app.use(cors(corsOptions))
