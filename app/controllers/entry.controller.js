@@ -60,7 +60,15 @@ exports.update = (req, res) => {
 
     Entry.update(entry, {where: {id: id}})
         .then(data => {
-            res.send(data);
+        if (+data === 1) {
+            res.status(202).send({
+                message: "Actualizado con éxito"
+            });
+        } else {
+            res.status(400).send({
+                message: "No se puedo actualizar id: " + id
+            });
+        }
         })
         .catch(err => {
             res.status(500).send({
@@ -76,13 +84,13 @@ exports.delete = (req, res) => {
     Entry.destroy({
         where: { id: id }
     })
-        .then(num=> {
-            if (num ==1) {
+        .then(data=> {
+            if (+data ===1) {
                 res.send({
                     message: "Borrado con éxito"
                 });
             } else {
-                res.send({
+                res.status(400).send({
                     message: "No se pudo borrar id: " +id
                 });
             }
@@ -100,7 +108,7 @@ exports.deleteAll = (req, res) => {
         truncate: false
     })
     .then(nums=> {
-        res.send({ message: `Todos (${nums}) los items borrados`});
+        res.status(202).send({ message: `Todos (${nums}) los items borrados`});
     })
     .catch(err=> {
         res.status(500).send({

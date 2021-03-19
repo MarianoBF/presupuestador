@@ -15,7 +15,7 @@ exports.create = (req, res) => {
         });
         return
     }
-    if (!req.body.monthlyLimit) {
+    if (!req.body.limit) {
         res.status(400).send({
             message: "Falta monto"
         });
@@ -25,7 +25,7 @@ exports.create = (req, res) => {
     const budget = {
         category: req.body.category,
         description: req.body.description,
-        monthlyLimit: req.body.monthlyLimit
+        limit: req.body.limit
     }
 
     Budget.create(budget)
@@ -62,18 +62,19 @@ exports.delete = (req, res) => {
     Budget.destroy({
         where: { id: id }
     })
-        .then(num=> {
-            if (num ==1) {
-                res.send({
+        .then(data=> {
+            console.log(data)
+            if (+data === 1) {
+                res.status(204).send({
                     message: "Borrado con éxito"
                 });
             } else {
-                res.send({
+                res.status(400).send({
                     message: "No se pudo borrar id: " +id
                 });
             }
             })
-            .catch(err=> {
+            .catch(()=> {
                 res.status(500).send({
                     message: "No se logró borrar id: " +id
                 });
@@ -86,7 +87,7 @@ exports.deleteAll = (req, res) => {
         truncate: false
     })
     .then(nums=> {
-        res.send({ message: `Todos (${nums}) los items borrados`});
+        res.status(202).send({ message: `Todos (${nums}) los items borrados`});
     })
     .catch(err=> {
         res.status(500).send({

@@ -6,11 +6,11 @@ info:
 servers:
   - url: http://localhost.com:8500/api
 paths:
-  /entry:
+  /entries:
     get:
-      summary: "Acceso a lista de movimientos"
+      summary: "Ver lista de movimientos"
       tags:
-        - Entries
+        - Movimientos
       responses: 
         200:
           description: "AA"
@@ -20,56 +20,157 @@ paths:
                 type: "array"
                 items: 
                   $ref: "#/components/schemas/Entry"
-    post:
-      summary: "Agregar nueva entry"
+        500:
+          description: "Error"
+    delete:
+      summary: "Borrar todos los movimientos"
       tags:
-        - Entries
-      parameters:
-        - name: Entry
-          in: query
-          description: "Los detalles del movimiento"
-          required: true
-          schema:
-            type: object
-            $ref: '#/components/schemas/Entry'
+        - Movimientos
+      responses: 
+        200:
+          description: "Borrado exitoso"
+        500:
+          description: "Error al borrar"
+  /entry:
+    post:
+      summary: "Agregar nuevo movimiento"
+      tags:
+        - Movimientos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entry'
       responses:
-        "200":
-          description: "Todo OK"
+        200:
+          description: "OK"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Entry'
+        400:
+          description: "Campos faltantes"
+        500:
+          description: "Error"
   /entry/{id}:
+    delete:
+      summary: "Borrar movimiento"
+      tags:
+        - Movimientos
+      parameters:
+        - in: path 
+          name: "id"
+          schema: 
+            type: "integer"
+          required: true
+          description: "Id de movimiento a borrar"          
+      responses: 
+        200:
+          description: "OK"
+        400:
+          description: "Error al borrar ID"
+        500:
+          description: "Error"
     put:
       summary: "Modificar Movimiento"
       tags:
-        - Entries
+        - Movimientos
       parameters:
-        - name: "Entry"
+        - in: path 
+          name: "id"
+          schema: 
+            type: "integer"
           required: true
-          in: query
-          schema:
-            type: "object"
-            $ref: '#/components/schemas/Entry'
+          description: "Id de movimiento a modificar"     
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entry'
       responses:
-        "200":
+        200:
           description: "OK"
           content: 
             application/json:
               schema:
                 type: "object" 
                 $ref: '#/components/schemas/Entry'
-        404:
+        400:
+          description: "Error al actualizar el ID"  
+        500:
           description: "Error"
+
+
+
+  /budget/:
+      get:
+        summary: "Acceso a lista de categorías"
+        tags:
+          - Presupuesto
+        responses: 
+          200:
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/Budget"
+          500:
+            description: "Error"
+      post:
+        summary: "Agregar nueva categoría"
+        tags:
+          - Presupuesto
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+        responses:
+          200:
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Budget'
+          400: 
+            description: "Falta parámetro"
+          500:
+            description: "Error"
+      delete:
+        summary: "Borrar todas las categorías"
+        tags:
+          - Presupuesto
+        responses: 
+          200:
+            description: "OK"
+          500:
+            description: "Error"
+  /budget/{id}:
     delete:
-      summary: "Borrar movimiento"
+      summary: "Borrar categoría"
       tags:
-        - Entries
+        - Presupuesto
+      parameters:
+      - in: path 
+        name: "id"
+        schema: 
+          type: "integer"
+        required: true
+        description: "Id de línea a borrar"
       responses: 
         200:
           description: "OK"
-        404:
+        400:
+          description: "Error al borrar el ID"
+        500:
           description: "Error"
+
+
 
       
 components:
@@ -83,20 +184,42 @@ components:
         - amount
         - kind
       properties:
-        id:
-          type: "integer"  
         date:
           type: "string"
           format: "date"
+          example: "01-05-2021"
         category:
-          type: "integer"
+          type: "string"
+          example: "Mercado"
         description:
           type: "string"
+          example: "Compra mensual de congelados"
         amount:
-          type: "number"         
+          type: "number"
+          example: 1000         
         kind:
           type: "string"
           enum: 
-          - Egreso
-          - Ingreso    
+          - "Egreso"
+          - "Ingreso"
+
+
+
+    Budget:
+      type: "object"
+      required:
+        - category
+        - description
+        - limit
+      properties:
+        category:
+          type: "string"
+          example: "Mercado"         
+        description:
+          type: "string"
+          example: "Los gastos realizados en compras de mercado"         
+        limit:
+          type: "number"
+          example: 10000         
+            
   

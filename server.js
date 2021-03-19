@@ -11,7 +11,7 @@ const docs = YAML.load('./app/documentation/documentation.yaml');
 const app = express();
 
 const corsOptions = {
-    origin: "http://localhost"
+    origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions))
