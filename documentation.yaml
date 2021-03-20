@@ -4,7 +4,7 @@ info:
   version: "1.0.0"
   description: "Un sistema de registro de movimientos con categorías para presupuestar"
 servers:
-  - url: http://localhost.com:8500/api
+  - url: http://localhost.com:8080/api
 paths:
   /entries:
     get:

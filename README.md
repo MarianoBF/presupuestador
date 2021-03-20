@@ -1,12 +1,11 @@
-Backend for personal budget app
+## Backend for personal budget app
 
-**To install:**
+**Instructions:**
 
-1. Db connection details in /app/config/db.config
+1. DB config details in /app/config/db.config
 
 1. npm install
 
 1. node server.js
 
-
-Documentation.yaml served on /documentation
+1. Documentation.yaml served on /documentation
