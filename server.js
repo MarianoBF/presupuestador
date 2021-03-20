@@ -4,7 +4,7 @@ const cors = require('cors')
 const mysql = require('mysql2/promise');
 const swaggerUI = require('swagger-ui-express');
 const YAML = require('yamljs')
-const docs = YAML.load('./app/documentation/documentation.yaml');
+const docs = YAML.load('./documentation.yaml');
 
 
 

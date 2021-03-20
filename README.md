@@ -1,6 +1,12 @@
-Back de presupuestador
-# npm install
-# node server.js
+Backend for personal budget app
 
-Db connection details in /app/config/db.config
+**To install:**
 
+1. Db connection details in /app/config/db.config
+
+1. npm install
+
+1. node server.js
+
+
+Documentation.yaml served on /documentation
