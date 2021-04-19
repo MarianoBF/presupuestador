@@ -42,7 +42,7 @@ mysql
         require("./app/routes/entry.routes")(app);
         require("./app/routes/budget.routes")(app);
 
-        const PORT = process.env.PORT || 8080;
+        const PORT = process.env.PORT;
 
         app.listen(PORT, () => {
           console.log("Servidor activo");
