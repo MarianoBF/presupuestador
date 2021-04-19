@@ -47,5 +47,7 @@ mysql
         app.listen(PORT, () => {
           console.log("Servidor activo");
         });
-      });
-  });
+      })
+      .catch(error=>console.log(error));
+  })
+  .catch(error=>console.log(error));
