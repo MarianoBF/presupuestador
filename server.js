@@ -9,7 +9,7 @@ require("dotenv").config();
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost",
 };
 
 app.use(cors(corsOptions));
@@ -42,10 +42,8 @@ mysql
         require("./app/routes/entry.routes")(app);
         require("./app/routes/budget.routes")(app);
 
-        const PORT = process.env.PORT;
-
-        app.listen(PORT, () => {
-          console.log("Servidor activo");
+        app.listen(process.env.PORT, () => {
+          console.log("Servidor activo en " + process.env.PORT);
         });
       })
       .catch(error=>console.log(error));
