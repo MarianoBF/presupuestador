@@ -1,9 +1,9 @@
 module.exports = {
-    HOST: "localhost",
-    USER: "test_user",
-    PASSWORD: "password123Q",
-    PORT: 8080,
-    DB: "budgetTestdb",
+    URL: process.env.DB_URL,
+    USER: process.env.DB_USER,
+    PASSWORD: process.env.DB_PASSWORD,
+    PORT: process.env.DB_PORT,
+    DB: process.env.DB_NAME,
     dialect: "mysql",
     pool: {
         max: 5,
