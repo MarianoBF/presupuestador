@@ -1,4 +1,6 @@
-## Backend for personal budget app
+## Backend for personal budget app with entry listing and categories.
+
+Front: 
 
 **Instructions:**
 

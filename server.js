@@ -9,7 +9,7 @@ require("dotenv").config();
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost",
+  origin: "https://marianobf.github.io/",
 };
 
 app.use(cors(corsOptions));
