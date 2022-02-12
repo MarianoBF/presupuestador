@@ -1,7 +1,7 @@
 const db = require("../models");
 const Entry = db.entries;
 const Op = db.Sequelize.Op;
-const checkDate = require("../helpers/checkdate");
+const checkDate = require("../helpers/checkDate");
 
 exports.create = (req, res) => {
   if (!req.body.category) {
