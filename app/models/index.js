@@ -19,6 +19,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.user = require("./user_model.js")(sequelize, Sequelize);
 db.entries = require("./entry_model.js")(sequelize, Sequelize);
 db.budget = require("./budget_model.js")(sequelize, Sequelize);
 

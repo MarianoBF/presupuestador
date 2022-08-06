@@ -1,9 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Entry = sequelize.define("user", {
-        alta: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
+    const User = sequelize.define("user", {
         email: {
             type: Sequelize.STRING,
             allowNull: false,
