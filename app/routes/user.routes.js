@@ -1,9 +1,9 @@
 module.exports = app => {
-    const auth = require("../controllers/user.controller.js");
+    const user = require("../controllers/user.controller.js");
 
     let router = require("express").Router();
 
-    router.post("/login", usuarios.login);
+    router.post("/login", user.login);
 
     app.use("/api/budget", router);
 

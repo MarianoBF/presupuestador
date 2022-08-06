@@ -41,6 +41,7 @@ mysql
 
         require("./app/routes/entry.routes")(app);
         require("./app/routes/budget.routes")(app);
+        require("./app/routes/user.routes")(app);
 
         app.listen(process.env.PORT, () => {
           console.log("Servidor activo en " + process.env.PORT);
