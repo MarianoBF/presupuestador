@@ -1,9 +1,7 @@
-//const User = require("../models/user_model.js");
 const jwt = require("jsonwebtoken");
 const dbConfig = require("../config/db.config");
 const bcrypt = require("bcryptjs");
 const db = require("../models");
-const Op = db.Sequelize.Op;
 const User = db.user;
 
 exports.login = (req, res) => {
@@ -13,8 +11,7 @@ exports.login = (req, res) => {
     };
     User.findOne({ where: email })
       .then(data => {
-        //const passwordOK = bcrypt.compareSync(req.body.password, res.password);
-        const passwordOK = data.dataValues.password === req.body.password;
+        const passwordOK = bcrypt.compareSync(req.body.password, data.dataValues.password);
         if (passwordOK) {
           const token = jwt.sign(
             {
@@ -40,10 +37,11 @@ exports.login = (req, res) => {
 };
 
 exports.register = (req, res) => {
+  let salt = bcrypt.genSaltSync(10);
   const user = {
     created: new Date(),
     email: req.body.email,
-    password: req.body.password,
+    password: bcrypt.hashSync(req.body.password, salt),
   };
 
   User.create(user)
