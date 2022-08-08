@@ -11,9 +11,7 @@ exports.login = (req, res) => {
     const email = {
       email: req.body.email,
     };
-    let condition = email ? { email: { [Op.like]: `%${req.body.email}%` } } : null;
-
-    User.findOne({ where: condition })
+    User.findOne({ where: email })
       .then(data => {
         //const passwordOK = bcrypt.compareSync(req.body.password, res.password);
         const passwordOK = data.dataValues.password === req.body.password;
@@ -45,12 +43,12 @@ exports.register = (req, res) => {
   const user = {
     created: new Date(),
     email: req.body.email,
-    password: String(req.body.password),
+    password: req.body.password,
   };
 
   User.create(user)
-    .then((data) => {
-      res.send(data);
+    .then((_) => {
+      res.send("Usuario creado con éxito");
     })
     .catch((err) => {
       console.log("error creating user", err);
