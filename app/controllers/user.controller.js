@@ -10,8 +10,11 @@ exports.login = (req, res) => {
       email: req.body.email,
     };
     User.findOne({ where: email })
-      .then(data => {
-        const passwordOK = bcrypt.compareSync(req.body.password, data.dataValues.password);
+      .then((data) => {
+        const passwordOK = bcrypt.compareSync(
+          req.body.password,
+          data.dataValues.password
+        );
         if (passwordOK) {
           const token = jwt.sign(
             {
@@ -20,7 +23,7 @@ exports.login = (req, res) => {
             },
             dbConfig.SECRET,
             { expiresIn: 86400 }
-         );
+          );
           res.status(200).send(token);
         } else {
           res.status(400).send("Usuario y/o Password Incorrecto");
@@ -50,8 +53,14 @@ exports.register = (req, res) => {
     })
     .catch((err) => {
       console.log("error creating user", err);
-      res.status(500).send({
-        message: "Ocurrió un error",
-      });
+      if (err.name === "SequelizeUniqueConstraintError") {
+        res.status(401).send({
+          message: "Email no válido",
+        });
+      } else {
+        res.status(500).send({
+          message: "Ocurrió un error",
+        });
+      }
     });
 };
