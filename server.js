@@ -33,7 +33,8 @@ mysql
     connection
       .query("CREATE DATABASE IF NOT EXISTS " + checker.DB + ";")
       .then(() => {
-        db.sequelize.sync();
+        // db.sequelize.sync();
+        db.sequelize.sync({alter: true});
 
         app.get("/", (req, res) => {
           res.json({message: "Servicio operativo"});
