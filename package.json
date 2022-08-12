@@ -1,6 +1,6 @@
 {
   "name": "presupuestador",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Un sistema de presupuestos personales",
   "main": "server.js",
   "scripts": {
